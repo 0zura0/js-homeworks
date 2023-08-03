@@ -16,11 +16,15 @@ var Books = [
       title:  'The Hunger Games',
       haveRead: false,
       dateOfRead: NaN
-    }
+    },
   ];
   
   function readingStatus(books) {
+    try{
     for (const book of books) {
+      if(typeof book !== 'object'){
+        throw new Error("Element must be object")
+      }
       if (book.haveRead) {
           Object.defineProperty(book, "daysAgo",{
             get(){
@@ -35,6 +39,9 @@ var Books = [
         console.log(`${book.author} haven't read ${book.title} book yet`);
       }
     }
+  }catch (e){
+    console.log(e.name+": "+e.message);
+  }
   }
   
   readingStatus(Books);
